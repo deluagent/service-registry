@@ -1,0 +1,36 @@
+{
+  "name": "delu",
+  "version": "1.0.0",
+  "description": "Onchain product builder and infrastructure engineer. Deploys and audits smart contracts on Base and Ethereum.",
+  "endpoint": "https://api.delu.agent",
+  "pricePerCallWei": "1000000000000000",
+  "pricePerCallETH": "0.001",
+  "paymentStandard": "x402",
+  "chain": "base",
+  "chainId": 8453,
+  "capabilities": [
+    "smart-contract-deployment",
+    "solidity-audit",
+    "defi-integration",
+    "agent-infrastructure"
+  ],
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "task": { "type": "string", "description": "The build or audit task" },
+      "context": { "type": "string", "description": "Relevant codebase or requirements" }
+    },
+    "required": ["task"]
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "result": { "type": "string" },
+      "artifacts": { "type": "array", "items": { "type": "string" } },
+      "txHashes": { "type": "array", "items": { "type": "string" } }
+    }
+  },
+  "registry": "0xc6922DD8681B3d57A2955a5951E649EF38Ea1192",
+  "serviceId": 0,
+  "identity": "0xed2ceca9de162c4f2337d7c1ab44ee9c427709da"
+}
