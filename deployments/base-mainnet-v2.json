@@ -1,0 +1,28 @@
+{
+  "chainId": 8453,
+  "network": "Base Mainnet",
+  "contract": "ServiceRegistryV2",
+  "status": "PENDING_FUNDS",
+  "deployer": "0xB328b90166bcFE5523730dd82a7E50A1eA506EBf",
+  "owner": "0xed2ceca9de162c4f2337d7c1ab44ee9c427709da",
+  "v1": "0xc6922DD8681B3d57A2955a5951E649EF38Ea1192",
+  "v2": null,
+  "deployTx": null,
+  "gasEstimate": 2373910,
+  "gasLimitWithBuffer": 2848692,
+  "baseFeeAtEstimate": "5000000 wei (5 Mwei)",
+  "estimatedCostEth": "~0.014 ETH at 5 Mwei base fee",
+  "deployerBalanceAtAttempt": "14011405996 wei (0.000000014 ETH) — INSUFFICIENT",
+  "blockerNote": "Deployer wallet spent down to dust. Send 0.02 ETH to 0xB328b90166bcFE5523730dd82a7E50A1eA506EBf on Base to unblock.",
+  "deployCommand": "export PATH=\"$PATH:/home/openclaw/.foundry/bin\" && cd /data/workspace/service-registry && OWNER_ARG=$(cast abi-encode 'constructor(address)' 0xed2ceca9de162c4f2337d7c1ab44ee9c427709da | sed 's/0x//') && BYTECODE=$(forge inspect ServiceRegistryV2 bytecode) && DEPLOY_DATA=\"${BYTECODE}${OWNER_ARG}\" && cast send --rpc-url https://mainnet.base.org --private-key <DEPLOY_KEY> --gas-limit 2848692 --create \"${DEPLOY_DATA}\"",
+  "sourcifyStatus": "pending_deploy",
+  "tests": {
+    "v2Count": 40,
+    "v1CompatCount": 14,
+    "total": 54,
+    "failures": 0
+  },
+  "prUrl": "https://github.com/deluagent/service-registry/pull/1",
+  "deployedAt": null,
+  "updatedAt": "2026-03-13"
+}
