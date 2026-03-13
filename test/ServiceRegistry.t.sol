@@ -37,7 +37,10 @@ contract ServiceRegistryTest is Test {
         ServiceRegistry.Service memory svc = registry.getService(id);
         assertEq(svc.owner, serviceA);
         assertEq(svc.name, "DataFeed Alpha");
-        assertEq(svc.stakedETH, STAKE);
+        // 5% registration fee goes to treasury; net stake = 95%
+        uint256 expectedStake = STAKE - (STAKE * 500) / 10_000;
+        assertEq(svc.stakedETH, expectedStake);
+        assertEq(registry.treasuryBalance(), (STAKE * 500) / 10_000);
         assertEq(svc.reputationScore, registry.REPUTATION_START());
         assertTrue(svc.active);
     }

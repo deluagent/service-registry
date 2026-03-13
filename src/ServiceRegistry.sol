@@ -36,8 +36,10 @@ contract ServiceRegistry is Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     // ─── Constants ────────────────────────────────────────────────────────────
-    uint256 public constant MIN_STAKE        = 0.001 ether;
-    uint256 public constant SLASH_BPS        = 2000;   // 20% slash per incident
+    uint256 public constant MIN_STAKE            = 0.001 ether;
+    uint256 public constant SLASH_BPS            = 2000;   // 20% slash per incident
+    uint256 public constant REGISTRATION_FEE_BPS = 500;    // 5% of stake → protocol treasury
+    uint256 public constant MAX_PROTOCOL_FEE_BPS = 1000;   // 10% max (governance bound)
     uint256 public constant BAD_RESPONSE_THRESHOLD = 10; // slash after 10 bad ratings
     uint256 public constant REPUTATION_START = 5000;   // 50/100
     uint256 public constant REPUTATION_MAX   = 10000;
@@ -121,6 +123,11 @@ contract ServiceRegistry is Ownable, ReentrancyGuard {
     ) external payable returns (uint256 id) {
         if (msg.value < MIN_STAKE) revert InsufficientStake(msg.value, MIN_STAKE);
 
+        // Protocol fee: 5% of stake → treasury
+        uint256 protocolFee = (msg.value * REGISTRATION_FEE_BPS) / 10_000;
+        uint256 stakedAmount = msg.value - protocolFee;
+        treasuryBalance += protocolFee;
+
         id = serviceCount++;
         services[id] = Service({
             owner:            msg.sender,
@@ -128,7 +135,7 @@ contract ServiceRegistry is Ownable, ReentrancyGuard {
             capabilitiesURI:  capabilitiesURI,
             pricePerCallWei:  pricePerCallWei,
             category:         category,
-            stakedETH:        msg.value,
+            stakedETH:        stakedAmount,
             reputationScore:  REPUTATION_START,
             totalCalls:       0,
             goodResponses:    0,
