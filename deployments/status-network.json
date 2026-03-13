@@ -1,0 +1,41 @@
+{
+  "chainId": 1660990954,
+  "network": "Status Network Testnet",
+  "serviceRegistry": "0x0667988FeaceC78Ac397878758AE13f515303972",
+  "deployer": "0xB328b90166bcFE5523730dd82a7E50A1eA506EBf",
+  "deployTx": "0x8efb682421c3db6df6e5fc7a9218e7b8a12af41b29e57d06343b072eeaee68af",
+  "gasless": true,
+  "rpc": "https://public.sepolia.rpc.status.network",
+  "explorer": "https://sepoliascan.status.network",
+  "contracts": {
+    "serviceRegistry": {
+      "address": "0x0667988FeaceC78Ac397878758AE13f515303972",
+      "tx": "0x8efb682421c3db6df6e5fc7a9218e7b8a12af41b29e57d06343b072eeaee68af",
+      "block": 17763692
+    },
+    "statusProof": {
+      "address": "0x9feC908De94FcE7EbB6Db11d4c6BDC21b615A23E",
+      "tx": "0xda7b4efbe6452037df1854958342b14038c51beb91dd5ed3d6e09fb8d777ab21",
+      "block": 17763780
+    }
+  },
+  "transactions": [
+    {
+      "action": "deploy ServiceRegistry",
+      "tx": "0x8efb682421c3db6df6e5fc7a9218e7b8a12af41b29e57d06343b072eeaee68af",
+      "gasCost": "0"
+    },
+    {
+      "action": "deploy StatusProof",
+      "tx": "0xda7b4efbe6452037df1854958342b14038c51beb91dd5ed3d6e09fb8d777ab21",
+      "gasCost": "0"
+    },
+    {
+      "action": "call ping() on StatusProof",
+      "tx": "0xd41d56a4de24136e5c406a889964940832184a3d3c12a699ecc5b76e55cb638d",
+      "gasCost": "0"
+    }
+  ],
+  "evmNote": "Compiled with evm_version=paris (PUSH0/Shanghai not supported on Linea zkEVM stack)",
+  "deployedAt": "2026-03-13"
+}
