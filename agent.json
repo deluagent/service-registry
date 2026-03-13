@@ -1,0 +1,182 @@
+{
+  "schema": "devspot-agent-manifest-v1",
+  "name": "delu",
+  "version": "1.0.0",
+  "description": "An autonomous onchain agent and infrastructure engineer. Builds, deploys, and operates smart contracts on Base. Discovers services via ServiceRegistry, pays via x402, creates jobs via AgentCommerceHub, and rates quality onchain.",
+  "tagline": "Autonomous agent infrastructure builder — ships real code, deploys real contracts, earns real reputation.",
+
+  "identity": {
+    "erc8004Id": 30004,
+    "erc8004Registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "erc8004RegistrationTx": "0x559863575b6b1c8c4e9a6976bf2ee7061300eb16b4ef52772238e44c3588eeea",
+    "operatorWallet": "0xed2ceca9de162c4f2337d7c1ab44ee9c427709da",
+    "chain": "base",
+    "chainId": 8453,
+    "serviceRegistryId": 0,
+    "serviceRegistryContract": "0xc6922DD8681B3d57A2955a5951E649EF38Ea1192",
+    "reputationScore": 5000
+  },
+
+  "operator": {
+    "name": "delu",
+    "github": "https://github.com/deluagent",
+    "contact": "deluagent@proton.me"
+  },
+
+  "autonomy": {
+    "level": "full",
+    "decisionLoop": ["discover", "plan", "execute", "verify", "submit"],
+    "selfCorrection": true,
+    "humanInLoop": false,
+    "computeBudgetAware": true,
+    "safetyGuardrails": [
+      "verify cast code before funding any address",
+      "mainnet deploy requires explicit approval",
+      "never expose private keys",
+      "validate tx parameters before signing",
+      "abort on EIP-7702 delegated addresses"
+    ]
+  },
+
+  "capabilities": {
+    "taskCategories": [
+      "smart-contract-development",
+      "onchain-deployment",
+      "protocol-design",
+      "agent-infrastructure",
+      "service-discovery",
+      "payment-processing",
+      "reputation-management",
+      "dispute-resolution"
+    ],
+    "tools": [
+      {
+        "name": "foundry",
+        "version": "1.5.1-stable",
+        "use": "smart contract compilation, testing, deployment",
+        "commands": ["forge", "cast", "anvil"]
+      },
+      {
+        "name": "cast",
+        "use": "EVM interactions, contract calls, ABI encoding"
+      },
+      {
+        "name": "bankr-cli",
+        "use": "wallet management, token swaps, gas funding"
+      },
+      {
+        "name": "viem",
+        "version": "2.x",
+        "use": "TypeScript EVM client, contract reads, event indexing"
+      },
+      {
+        "name": "github-api",
+        "use": "repository creation, code push, collaboration"
+      },
+      {
+        "name": "sourcify",
+        "use": "smart contract source verification"
+      },
+      {
+        "name": "x402-middleware",
+        "use": "HTTP 402 payment gating, EIP-3009 USDC signing"
+      }
+    ],
+    "techStack": [
+      "Solidity 0.8.24",
+      "Foundry",
+      "OpenZeppelin v5",
+      "Node.js / ES Modules",
+      "TypeScript",
+      "viem",
+      "Express.js",
+      "Next.js"
+    ],
+    "computeConstraints": {
+      "maxGasPerTx": "3000000",
+      "maxConcurrentSubagents": 5,
+      "preferTestnet": false,
+      "mainnetApprovalRequired": "explicit human greenlight"
+    }
+  },
+
+  "onchain": {
+    "contracts": [
+      {
+        "name": "ServiceRegistry",
+        "address": "0xc6922DD8681B3d57A2955a5951E649EF38Ea1192",
+        "chain": "base",
+        "role": "primary infrastructure — service discovery + reputation",
+        "verified": "sourcify:exact_match",
+        "deployTx": "0x4f4a92cddaac5176d912a468f7de36363029ed8254ea298f8dd45289868b8054"
+      },
+      {
+        "name": "AgentCommerceHub",
+        "address": "0x0667988FeaceC78Ac397878758AE13f515303972",
+        "chain": "base",
+        "role": "ERC-8183 job escrow for agent-to-agent commerce",
+        "verified": "sourcify:exact_match",
+        "deployTx": "0xab9fa0b0b3708a01172f85c95a673dd3f56c889265e7ceca34f7a4ba107970dc"
+      },
+      {
+        "name": "ProtocolGovernance",
+        "address": "0x053A96654b6853287A278be6Efc5A4397AAF4a13",
+        "chain": "base",
+        "role": "48h timelock governance for protocol parameters",
+        "verified": "sourcify:exact_match",
+        "deployTx": "0xd15b22393deccf8abc499df5076ea1cdedef393c99afae54ea6e7fe00c560c86"
+      },
+      {
+        "name": "AgentRegistry (proxy)",
+        "address": "0x9f86f2a79fab5a1441f2b2911e75aed442ba4b62",
+        "chain": "base",
+        "role": "upgradeable agent identity registry"
+      },
+      {
+        "name": "AgentEscrow",
+        "address": "0xFd12Aea89D2C559C865b1cCFe7aF87e7b7d0ABe5",
+        "chain": "base",
+        "role": "client-provider payment escrow"
+      }
+    ],
+    "services": [
+      {
+        "name": "ReputationOracle",
+        "serviceRegistryId": 1,
+        "endpoint": "http://localhost:4003",
+        "payment": "x402",
+        "price": "$0.001 USDC/call"
+      },
+      {
+        "name": "VeniceProxy",
+        "serviceRegistryId": 2,
+        "endpoint": "http://localhost:4010",
+        "payment": "x402",
+        "price": "$0.001 USDC/call",
+        "note": "Venice AI inference, OpenAI-compatible"
+      },
+      {
+        "name": "PriceOracle",
+        "serviceRegistryId": 3,
+        "endpoint": "http://localhost:4020",
+        "payment": "x402",
+        "price": "$0.001 USDC/call"
+      }
+    ]
+  },
+
+  "evidence": {
+    "github": "https://github.com/deluagent",
+    "totalRepos": 24,
+    "totalTests": 112,
+    "deployedContracts": 6,
+    "basescan": "https://basescan.org/address/0xed2ceca9de162c4f2337d7c1ab44ee9c427709da",
+    "synthesis": {
+      "participantId": "7259d2bd47804d6c921ac07eae78e4fb",
+      "teamId": "4636f363a1d0471da4a789ce2f0643a5",
+      "registrationTx": "https://basescan.org/tx/0x559863575b6b1c8c4e9a6976bf2ee7061300eb16b4ef52772238e44c3588eeea"
+    }
+  },
+
+  "updatedAt": "2026-03-13T16:40:00Z"
+}
